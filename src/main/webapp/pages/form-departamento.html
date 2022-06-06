@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!--JQuery-->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- Bootstrap core CSS -->
+<link href="../sb-admin/css/bootstrap.css" rel="stylesheet">
+<link href="../sb-admin/css/sb-admin.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="../sb-admin/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+<!-- DataTable.net -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" charset="UTF-8">
+	$(document).ready(function() {
+
+
+		window.onload = function() {
+			windows.alert('Ola mundo');
+		}
+		
+		var dataTable = $('#table-departament').DataTable({
+			"lengthMenu": [[8], [8]],
+			"ajax": {
+				"url" : "Departamentos",
+				"type": "GET"
+			},
+	        columns : [{title: 'Hierarquia', data : 'Hierarquia'}, {title: 'departamentos', data : 'departamento'}, {title: 'sigla', data : 'sigla'}]
+	    });
+
+    
+	    
+		$("#save-dep").click(function() {
+
+			var sgl = $('#sgl').val();
+			var dpt = $('#dpt').val();
+			var hrq = $('#hrq').val();
+
+			$.ajax({
+				method : 'POST',
+				url : 'Departamentos?actionServlet=100',
+				data : {
+					'dpt' : dpt,
+					'sgl' : sgl,
+					'hrq' : hrq
+				},
+				error : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-warning');
+					$("#dialog").html('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+					$("#dialog").dialog("Erro :" + data);
+				},
+				success : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-success');
+					$("#dialog").text("Mensagem :" + data + " adicionado");
+				}
+			});
+			$('#dpt').val("");
+			$('#sgl').val("");
+		});
+
+	});
+</script>
+</head>
+
+
+<body>
+	<div id="page-wrapper">
+		<div class="row">
+			<div id="wrapper">
+				<h1>
+					<small></small>
+				</h1>
+
+				<ol class="breadcrumb">
+					<li><a href="?pg=156"><i class="fa fa-user"></i> Home</a></li>
+					<li class="active"><i class="fa fa-edit"></i> departamentos</li>
+				</ol>
+
+				<div id="dialog">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+
+				<img src="src\departamentos3.png" height="100" width="100" />
+				<form>
+
+
+
+					<div class="col-lg-9">
+						<table class="table table-hover tablesorter">
+							<thead>
+								<tr>
+									<th>Hierarquia <i class="fa fa-sort"></i></th>
+									<th>Departamento <i class="fa fa-sort"></i></th>
+									<th>Sigla <i class="fa fa-sort"></i></th>
+									<th><i class="fa fa-sort"></i></th>
+								</tr>
+							</thead>
+							<tbody>
+								<th><select id="hrq" class="form-control">
+										<option>Superintendência</option>
+										<option>Gerência</option>
+										<option>Coordenação</option>
+								</select></th>
+								<th><input id="dpt" class="form-control" name="dpt" /></th>
+								<th><input id="sgl" class="form-control" name="sgl" /></th>
+								<th>
+									<button id="save-dep" type="button" class="btn btn-success">Cadastrar</button>
+								</th>
+							</tbody>
+							<tfoot>
+							</tfoot>
+						</table>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="wrapper">
+				<div class="col-lg-12">
+					<table id="table-departaments" class="display">
+						<thead>
+							<tr>
+								<th>Nível</th>
+								<th>Departamento</th>
+								<th>Sigla</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+
+</html>

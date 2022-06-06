@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<head>
+
+<!--JQuery-->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+<!-- Bootstrap core CSS -->
+<link href="../sb-admin/css/bootstrap.css" rel="stylesheet">
+<link href="../sb-admin/css/sb-admin.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="../sb-admin/font-awesome/css/font-awesome.min.css">
+
+<!-- DataTable.net -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" charset="UTF-8">
+	$(document).ready(function() {
+        
+			$.ajax({
+				method : 'GET',
+				url: "Fornecedores?actionServlet=400",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (fornecedores) {
+                    //if(fornecedores.lenght > 0){
+                        window.alert(fornecedores.lenght);
+                        //var option = '<option>Selecione um fornecedor</option>';
+                        //$.each(fornecedores, function(i, fornecedor){
+                        //   option += '<option value="';
+                        //   option += fornecedor.codigo; 
+                        //   option += '">';
+                        //   option += fornecedor.fornecedor;
+                        //   option += '</option>';
+                        //}
+                        //$('#fornecedores').html(option).show();
+                    //}else{
+                    //    Reset();
+                    //    $('#').html('<span>Não foram encontrados fornecedores</span>');
+                    //}
+				},
+				error : function(exception) {
+					$('#fornecedores').html(exception).show();
+				}
+			});
+
+		$('#save-mdl').click(function() {
+
+			var mdl = $('#mdl').val();
+			var fbt = $('#fbt').val();
+			var cor = $('#cor').val();
+			var ano = $('#ano').val();
+			var dms = $('#dms').val();
+			var peso = $('#peso').val();
+            
+			$.ajax({
+				method : 'POST',
+				url : 'Modelos?actionServlet=100',
+				data : {'fbt' : fbt,
+					    'abg' : abg
+					   },
+				error : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-warning');
+					$("#dialog").html('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+					$("#dialog").dialog("Erro :" + data);
+				},
+				success : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-success');
+					$("#dialog").text("Mensagem :" + data + " adicionado");
+				}
+			});
+			$('#fbt').val("");
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<div id="page-wrapper">
+		<div class="row">
+			<div id="wrapper">
+				<h1>
+					<small></small>
+				</h1>
+
+				<ol class="breadcrumb">
+					<li><a href="?pg=156"><i class="fa fa-user"></i> Home</a></li>
+					<li class="active"><i class="fa fa-edit"></i> modelos</li>
+				</ol>
+
+				<div id="dialog">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+
+				<img src="src\prototype0.jpeg" height="100" width="100" /> <br /><br />
+				<form>
+					<div class="col-lg-12">
+						<div class="bs-example">
+							<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+								<li class="active"><a href="#modelo" data-toggle="tab">Modelo</a></li>
+								<li><a href="#configuracao" data-toggle="tab">Configuracao</a></li>
+							</ul>
+							<div id="myTabContent" class="tab-content">
+								<div class="tab-pane fade active in" id="modelo">
+									<table class="table table-hover tablesorter">
+										<thead>
+											<tr>
+												<th>Lancamento</th>
+												<th>Modelo</th>
+												<th>Fabricante</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th><select id="tipo" class="form-control" name="tipo">
+														<option>Selecione um lancamento:</option>
+														<option value="1">2020</option>
+														<option value="2">2019</option>
+														<option value="2">2018</option>
+														<option value="2">2017</option>
+														<option value="2">2016</option>
+														<option value="2">2015</option>
+														<option value="2">2014</option>
+														<option value="2">2013</option>
+														<option value="2">2012</option>
+														<option value="2">2011</option>
+														<option value="2">2010</option><!--  
+														<option value="2">2009</option>
+														<option value="2">2008</option>
+														<option value="2">2007</option>
+														<option value="2">2006</option>
+														<option value="2">2005</option>
+														<option value="2">2004</option>
+														<option value="2">2003</option>
+														<option value="2">2002</option>
+														<option value="2">2001</option>
+														<option value="2">2000</option>-->
+												</select></th>
+												<th><input id="rzs" class="form-control" name="rzs" /></th>
+												<th><select id="fornecedores" class="form-control" name="fornecedores" />
+                                                </th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="configuracao">
+									<table class="table table-hover tablesorter">
+										<thead>
+											<tr>
+												<th>Dimensao</th>
+												<th>Peso</th>
+												<th>Cor</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th><input id="dms" class="form-control" name="dms" /></th>
+												<th><input id="peso" class="form-control" name="peso" /></th>
+												<th><select id="cor" class="form-control" name="cor">
+														<option>Selecione uma cor:</option>
+														<option value="10">VERMELHA</option>
+														<option value="11">BRANCA</option>
+														<option value="12">PRETA</option>
+														<option value="13">CINZA</option>
+														<option value="14">ROSA</option>
+												</select></th>
+												<th><button id="save-item" type="button" class="btn btn-success">Cadastrar</button></th>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="wrapper">
+				<div class="col-lg-12">
+					<table id="table-modelos" class="display">
+						<thead>
+							<tr>
+								<th>Fabricante</th>
+								<th>Modelo</th>
+								<th>Quantidade</th>
+								<th>Lancamento</th>
+								<th>dimensao</th>
+								<th>peso</th>
+								<th>cor</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<script type="text/javascript" charset="UTF-8">
+                            
+                            </script>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

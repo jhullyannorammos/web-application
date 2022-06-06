@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<head>
+
+<!--JQuery-->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+<!-- Bootstrap core CSS -->
+<link href="../sb-admin/css/bootstrap.css" rel="stylesheet">
+<link href="../sb-admin/css/sb-admin.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="../sb-admin/font-awesome/css/font-awesome.min.css">
+
+<!-- DataTable.net -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" charset="UTF-8">
+	$(document).ready(function() {
+
+		var dataTable = $('#table-produtos').DataTable({
+			"ajax": {
+				"url" : "Produtos?actionServlet=400",
+				"type": "GET"
+			},
+	        "lengthMenu": [[8], [8]]
+	    });
+
+		$('#select-modelos').change(function(){
+			$.ajax({
+				method : 'GET',
+				url: "Modelos?actionServlet=400",
+				dataType: "json",
+				success: function (modelos) {
+
+				},
+				error: function (modelos) {
+
+				}
+			});
+		});
+
+		$('#save-prd').click(function() {
+
+			var mdl = $('#mdl').val();
+			var fbt = $('#fbt').val();
+			var cor = $('#cor').val();
+			var ano = $('#ano').val();
+			var dms = $('#dms').val();
+			var peso = $('#peso').val();
+            
+			$.ajax({
+				method : 'POST',
+				url : 'Modelos?actionServlet=100',
+				data : {'fbt' : fbt,
+					    'abg' : abg
+					   },
+				error : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-warning');
+					$("#dialog").html('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+					$("#dialog").dialog("Erro :" + data);
+				},
+				success : function(data) {
+					$("#dialog").addClass('alert alert-dismissable alert-success');
+					$("#dialog").text("Mensagem :" + data + " adicionado");
+				}
+			});
+			$('#fbt').val("");
+		});
+		
+	});
+</script>
+</head>
+<body>
+	<div id="page-wrapper">
+		<div class="row">
+			<div id="wrapper">
+				<h1>
+					<small></small>
+				</h1>
+
+				<ol class="breadcrumb">
+					<li><a href="?pg=156"><i class="fa fa-user"></i> Home</a></li>
+					<li class="active"><i class="fa fa-edit"></i> produtos</li>
+				</ol>
+
+				<div id="dialog">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+
+				<img src="src\produtos.png" height="100" width="100" /> <br />
+				<br />
+				<form>
+
+					<table class="table table-hover tablesorter">
+						<thead>
+							<tr>
+								<th>Ano de lancamento</th>
+								<th>Nome do produto</th>
+								<th>Valor</th>
+								<th>Modelo</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th><select id="tipo" class="form-control" name="tipo">
+										<option>Selecione um lancamento:</option>
+										<option value="1">2020</option>
+										<option value="2">2019</option>
+										<option value="2">2018</option>
+										<option value="2">2017</option>
+										<option value="2">2016</option>
+										<option value="2">2015</option>
+										<option value="2">2014</option>
+										<option value="2">2013</option>
+										<option value="2">2012</option>
+										<option value="2">2011</option>
+										<option value="2">2010</option>
+										<!--  
+										<option value="2">2009</option>
+										<option value="2">2008</option>
+										<option value="2">2007</option>
+										<option value="2">2006</option>
+										<option value="2">2005</option>
+										<option value="2">2004</option>
+										<option value="2">2003</option>
+										<option value="2">2002</option>
+										<option value="2">2001</option>
+										<option value="2">2000</option>-->
+								</select></th>
+								<th><div class="form-group input-group">
+								    <span class="input-group-addon"></span>
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon"></span>
+                                    </div>
+                                </th>
+								<th><div class="form-group input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" value="R$ 0,00">
+                                    <span class="input-group-addon">.00</span>
+                                    </div>
+                                </th>
+                                
+                                <th><select id="tipo" class="form-control" name="tipo">
+										<option>Selecione um modelo:</option>
+										<option value="1">DELL OPTIPLEX 3070</option>
+										<option value="2">DELL OPTIPLEX 790</option>
+										<option value="3">DELL OPTIPLEX 780</option>
+								</select></th>
+								<th><button id="save-item" type="button" class="btn btn-success">Cadastrar</button></th>
+							</tr>
+						</tbody>
+					</table>
+
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="wrapper">
+				<div class="col-lg-12">
+					<table id="table-produtos" class="display">
+						<thead>
+							<tr>
+								<th>Fabricante</th>
+								<th>Produto</th>
+								<th>Modelo</th>
+								<th>valor</th>
+								<th>lancamento</th>
+								<th>dimensao</th>
+								<th>peso</th>
+								<th>cor</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<script type="text/javascript" charset="UTF-8">
+                            
+                            </script>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

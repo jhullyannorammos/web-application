@@ -1,0 +1,95 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background: #333;
+	color: #FFF;
+	-moz-box-shadow: 0 3px 10px 0 #CCC;
+	-webkit-box-shadow: 0 3px 10px 0 #ccc;
+	text-shadow: 0px 0px 5px #fff;
+	
+	padding: 10px;
+	
+	height : 100px;
+	width: auto;
+
+}
+
+.main {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.main {
+	border: #FF0000 0px solid;
+	height: 100%;
+	width: 800px;
+}
+
+body {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.menu {
+	background: #FFF;
+	list-style: none;
+	border: 1px solid #C0C0C0;
+	float: left;
+}
+
+.menu li {
+	background: #FFF;
+	position: relative;
+	float: left;
+	border-right: 1px solid #C0C0C0;
+}
+
+.menu li a {
+	color: #333;
+	text-decoration: none;
+	padding: 5px 10px;
+	display: block;
+}
+
+.menu li a:hover {
+	background: #333;
+	color: #FFF;
+	-moz-box-shadow: 0 3px 10px 0 #CCC;
+	-webkit-box-shadow: 0 3px 10px 0 #ccc;
+	text-shadow: 0px 0px 5px #fff;
+}
+
+.menu li  ul {
+	position: absolute;
+	top: 25px;
+	left: 0;
+	background-color: #FFF;
+	display: none;
+}
+
+.menu li:hover ul, .menu li.over ul {
+	display: block;
+}
+
+.menu li ul li {
+	border: 1px solid #C0C0C0;
+	display: block;
+	width: 150px;
+}
+
+.footer{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.footer{
+	background: #333;
+	color: #FFF;
+	text-shadow: 0px 0px 5px #fff;
+	
+	height: 100px;
+	width: auto;
+}
